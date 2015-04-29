@@ -128,6 +128,8 @@
                         $input.trigger("change");
                         self_triggered_change = false;
                     }
+
+                    e.preventDefault();
                 }
                 prevX = x;
                 prevY = y;
