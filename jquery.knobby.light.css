@@ -1,0 +1,52 @@
+.knobby-wrap {
+  padding: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+.knobby-knob {
+  display: block;
+  position: relative;
+  width: 8em;
+  height: 8em;
+  border-radius: 100%;
+  overflow: hidden;
+  /* created with http://codeblock.at/base64-noise-generator/ */
+  background: #dddddd url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAD1BMVEUAAADs7uz07uz08vTs6uzbauAvAAAAAXRSTlMAQObYZgAAAqNJREFUOI0dlNmBAzEIQ90CRwMe3ACGBjD0X9Mqm58kE8vAk8giV0ptlgg2Gs+ax/V43QwhPd46QuVJJ573zRWnid6+vemL3jp0SDRnhUkNZRz/Jm5dKUsp1fW9glz8yzGiIaraz3WvDg5XLy+WYac4n+FBLI8MT80Oap8OK3wviTUaMrdcW4XRkiuLbq5FH7+wuIGeByoZqqA565sitsvpXTTjMX5Pta8H4ZRgcjRH6e/Z1v3ZMvN3BSw0s8wjQkQ6dblYOlEyvUKBmWcj3EBi45Itv95JO3Siu+WgxrhN3T3hgjbfIT+jsvjNdjQAdIG3bvI4bz9cdRjT0qaSPBl9avpdXo8m5VyQNrXGUN0v5tL60VdcQ8Sq/LPjqnwziwCWMwLXGyCT/DxMqzWHI7bReWNNnVGzBYgW5vo57bGvIgdBQhhP72p1RjaYgo7igHJcfQMFzjk+T2T5eaFSFxB8pWhonKiuXcZHR3uzfovogBXc3TQMiqU9z58sY2hRABfxJ8gBrKfQWrlv5BDXKJDl7zzMmbuYX6dnN0/uA6cSMbkjCwUhxfB5E3mEIUXe0uuL7N0CMqFga4dOifhdG6fKDU8uVbr7lINoLoSHmg8Qb+Q2EWHZdJWW//RiuDkGmTyJF4p+62A1Ko/0d0GHVEheNNJeOz2s697p/z1A4QSCBThOBx79OsNPv7QAKmpovev5vsuN7bQ7PxXSnoap6/yvm9N2xI/zM1ofY+dM0HAeGK+E7Ua+oaCHXdy/HKAjg8iQPJflHOfUheIDFEppRM6dFpxF8h2OTl8D9ZjaW2b1kBN8RXq5CXGofG6BAR0rAfexZRjFv6Oxc2/CfwlcT0JOtuhgUbggwxy35MAal0e0VYFTf4lDV78pSmUaoz1OILJr0X8XGrzEBeHfEgAAAABJRU5ErkJggg==);
+  background-size: 50% 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid #aaa;
+}
+.knobby-shadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  border-radius: 100%;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.25) inset, 0 1px 4px rgba(255, 255, 255, 0.85) inset;
+}
+.knobby-handle {
+  transform: rotate(0deg) translateY(-3em);
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  left: 50%;
+  top: 50%;
+  border: 1px solid #aaa;
+  margin-top: -0.5em;
+  margin-left: -0.5em;
+  border-radius: 100%;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25) inset, 0 -2px 2px rgba(255, 255, 255, 0.85) inset;
+  pointer-events: none;
+}
+.knobby-input {
+  margin: 4px auto;
+  text-align: right;
+  padding: 5px 0;
+  font-family: monospace;
+}
+/*# sourceMappingURL=jquery.knobby.light.css.map */
