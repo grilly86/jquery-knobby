@@ -7,7 +7,6 @@ You'll find the demo files in the `demo/` directory.
 
 ## Installation 
 
-
 Load the Javascript file by including the script **after** jQuery has been included:
 
     `<script src="jquery.knobby.js"></script>`
@@ -44,7 +43,7 @@ You can pass options to configure knobby with:
 
 ##Options
 
-The following options can be served as attributes or as options - if both is present **attribute wins**.
+The following options can be served as attributes or passed as options - if both is present **attribute wins**.
 
 |attribute | description    |  type |
 |-----|-----|-----|
@@ -52,5 +51,3 @@ The following options can be served as attributes or as options - if both is pre
 | max | (default = 100)  | float |
 | step | the minimun value change | float |
 | turn | number of full circles from min to max | float |
-
-

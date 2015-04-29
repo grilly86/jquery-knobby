@@ -89,14 +89,16 @@
 
             var self_triggered_change=false;
 
-            $input.bind("input change", function () {
+            $input.bind("input change", function (e) {
                 if (!self_triggered_change) {
                     exact_val = parseFloat($(this).val()) || 0.0;
+                    if ((typeof max !== "undefined") && (exact_val > max)) exact_val = max;
+                    if ((typeof min !== "undefined") && (exact_val < min)) exact_val = min;
+                    
+                    refreshValue(e.type=="change");
+                    draw();
                 }
-                draw();
             });
-
-
             $knob.bind("mousedown touchstart", function (e) {
                 mouseIsDown = true;
             });
@@ -120,15 +122,15 @@
                         if ((typeof max !== "undefined") && (exact_val > max)) exact_val = max;
                         if ((typeof min !== "undefined") && (exact_val < min)) exact_val = min;
 
+                        refreshValue(true);
+                        draw();
                         self_triggered_change = true;
-                        $input.val(val).trigger("change");
+                        $input.trigger("change");
                         self_triggered_change = false;
                     }
                 }
                 prevX = x;
                 prevY = y;
-
-                e.preventDefault();
             });
             $knob.bind("dragstart drop", function () {
                 return false;
@@ -140,15 +142,19 @@
                 prevY = undefined;
             });
 
-            var draw = function () {
+            var refreshValue = function(rewrite) {
+                if (typeof rewrite == "undefined") rewrite = true;
 
                 var decimals = (step.toString().length-1);
                 if (decimals>0) decimals-=1;
                 val = (Math.round(exact_val/step)*step).toFixed(decimals);
-                $input.val(val);
 
+                if (rewrite) {
+                    $input.val(val);
+                }
+            };
+            var draw = function () {
                 var degree = normalizeDegree((val-min) * (((360)*turn) / (max-min)));
-
                 $handle.css("transform", " translateY(-3em) rotate(-" + degree + "deg)");
                 $knob.css("transform", "rotate(" + degree + "deg)");
                 $knob_sh.css("transform", "rotate(-" + degree + "deg)");
