@@ -86,6 +86,7 @@
             var val = (Math.round(exact_val/step)*step).toFixed(decimals);
             $input.val(val);
 
+
             var self_triggered_change=false;
 
             $input.bind("input change", function () {
@@ -96,26 +97,33 @@
             });
 
 
-            $knob.bind("mousedown", function (e) {
+            $knob.bind("mousedown touchstart", function (e) {
                 mouseIsDown = true;
             });
-            $knob.bind("mousemove", function (e) {
+            $knob.bind("mousemove touchmove", function (e) {
                 var x = e.clientX - $knob.position().left;
                 var y = e.clientY - $knob.position().top;
 
-                if (mouseIsDown) {
+                if(e.type == 'touchmove'){
+                    var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                    x = touch.pageX - $knob.position().left;
+                    y = touch.pageY - $knob.position().top;
+                }
 
-                    var change = upOrDown(x, y, prevX, prevY, width, height);
-                    change = change / 360/turn*(max-min);
+                if (mouseIsDown || e.type=="touchmove") {
+                    if (prevX && prevY) {
 
-                    exact_val += change;
-                    if ((typeof max !== "undefined") && (exact_val > max)) exact_val = max;
-                    if ((typeof min !== "undefined") && (exact_val < min)) exact_val = min;
-                    //var val = exact_val - ((exact_val)% step)  + step;
+                        var change = upOrDown(x, y, prevX, prevY, width, height);
+                        change = change / 360 / turn * (max - min);
 
-                    self_triggered_change=true;
-                    $input.val(val).trigger("input");
-                    self_triggered_change=false;
+                        exact_val += change;
+                        if ((typeof max !== "undefined") && (exact_val > max)) exact_val = max;
+                        if ((typeof min !== "undefined") && (exact_val < min)) exact_val = min;
+
+                        self_triggered_change = true;
+                        $input.val(val).trigger("change");
+                        self_triggered_change = false;
+                    }
                 }
                 prevX = x;
                 prevY = y;
