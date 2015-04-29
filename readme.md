@@ -2,6 +2,9 @@
 
 is a jquery plugin to convert number inputs (`input[type=number]`) into knobs that can be adjusted by dragging with mouse or fingers.
 
+##[Demo](http://codeblock.at/jquery-knobby/demo/)
+You'll find the demo files in the `demo/` directory.
+
 ## Installation 
 
 
@@ -12,7 +15,7 @@ is a jquery plugin to convert number inputs (`input[type=number]`) into knobs th
 
 
 
-##Usage
+## Usage
 
 You need to have an input like the following
 
