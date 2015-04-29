@@ -1,7 +1,7 @@
 (function ($) {
     $.fn.knobby = function (options) {
         var settings = $.extend({
-            turns:1,
+            turn:1,
             min:0,
             max:100,
             step:1
