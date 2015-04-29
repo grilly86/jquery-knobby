@@ -3,19 +3,25 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="../jquery.knobby.css" >
+    <link rel="stylesheet" href="../jquery.knobby.dark.css" >
 
     <style>
         body {
             background:#444;
         }
+        pre {
+            color:#eee;
+        }
+
     </style>
 </head>
 <body>
+
+        <pre>&lt;input type="number" name="test" turn="10" value="0" min="-10000" max="10000" step="1" /&gt;</pre>
         <input type="number" name="test" turn="10" value="0" min="-10000" max="10000" step="1" />
-
-        <input type="number" name="test" turn=".5"  value="0" min="-5" max="10" step=".1" />
-
+        <pre>&lt;input type="number" name="test" turn=".5"  value="0" min="-5" max="10" step=".25" /&gt;</pre>
+        <input type="number" name="test" turn=".5"  value="5" min="-5" max="10" step=".25" />
+        <pre>&lt;input type="number" name="test" turn="1"  value="0" min="0" max="100" step="10" /&gt;</pre>
         <input type="number" name="test" turn="1"  value="0" min="0" max="100" step="10" />
 
         <script src="jquery.js"></script>
