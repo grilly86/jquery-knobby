@@ -39,7 +39,7 @@
   margin-left: -0.5em;
   background: #525b58;
   border-radius: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) inset, 0 -2px 4px rgba(255, 255, 255, 0.85) inset;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5) inset, 0 -2px 2px rgba(255, 255, 255, 0.85) inset;
   pointer-events: none;
 }
 .knobby-input {
