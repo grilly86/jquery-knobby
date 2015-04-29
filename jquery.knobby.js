@@ -50,7 +50,6 @@
         };
 
         this.each(function() {
-            var mouseIsDown = false;
             var $input = $(this);
             var $wrap = $("<div>");
             $wrap.addClass("knobby-wrap");
@@ -71,13 +70,7 @@
             $input.addClass("knobby-input");
 
 
-            $input.bind("input change", function () {
-                if (!self_triggered_change) {
-                    exact_val = parseFloat($(this).val()) || 0.0;
-                }
-                draw();
-            });
-
+            var mouseIsDown = false;
             var prevX, prevY;
             var width = $knob.width();
             var height = $knob.height();
@@ -88,13 +81,21 @@
             var turn = parseFloat($input.attr("turn")) || settings.turn;
             var exact_val = parseFloat($input.val()) || 0.0;
 
-
+            // formats numbers on init
             var decimals = (step.toString().length-1);
             if (decimals>0) decimals-=1;
             var val = (Math.round(exact_val/step)*step).toFixed(decimals);
             $input.val(val);
 
             var self_triggered_change=false;
+
+            $input.bind("input change", function () {
+                if (!self_triggered_change) {
+                    exact_val = parseFloat($(this).val()) || 0.0;
+                }
+                draw();
+            });
+
 
             $knob.bind("mousedown", function (e) {
                 mouseIsDown = true;
@@ -113,12 +114,6 @@
                     if ((typeof min !== "undefined") && (exact_val < min)) exact_val = min;
                     //var val = exact_val - ((exact_val)% step)  + step;
 
-                    var decimals = (step.toString().length-1);
-                    if (decimals>0) decimals-=1;
-
-                    val = (Math.round(exact_val/step)*step).toFixed(decimals);
-
-
                     self_triggered_change=true;
                     $input.val(val).trigger("input");
                     self_triggered_change=false;
@@ -136,7 +131,14 @@
                 mouseIsDown = false;
             });
             var draw = function () {
+
+                var decimals = (step.toString().length-1);
+                if (decimals>0) decimals-=1;
+                val = (Math.round(exact_val/step)*step).toFixed(decimals);
+                $input.val(val);
+
                 var degree = normalizeDegree((val-min) * (((360)*turn) / (max-min)));
+
                 $handle.css("transform", " translateY(-3em) rotate(-" + degree + "deg)");
                 $knob.css("transform", "rotate(" + degree + "deg)");
                 $knob_sh.css("transform", "rotate(-" + degree + "deg)");
