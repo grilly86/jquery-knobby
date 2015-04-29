@@ -134,9 +134,12 @@
                 return false;
             }).css("cursor", "pointer");
 
-            $(window).bind("mouseup", function (e) {
+            $(window).bind("mouseup touchend", function (e) {
                 mouseIsDown = false;
+                prevX = undefined;
+                prevY = undefined;
             });
+
             var draw = function () {
 
                 var decimals = (step.toString().length-1);
