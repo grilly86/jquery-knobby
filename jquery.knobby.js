@@ -1,7 +1,6 @@
 (function ($) {
     $.fn.knobby = function (options) {
         var settings = $.extend({
-            color:'#556b2f',
             turns:1,
             min:0,
             max:100,
