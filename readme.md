@@ -1,6 +1,6 @@
 #jquery.knobby.js
 
-a jquery plugin to convert number input elements into knobs that can be adjusted by dragging with mouse or fingers.
+a jquery plugin to convert number input elements into knobs that can be adjusted by cyclic dragging with mouse or fingers.
 
 ##[Demo](http://codeblock.at/jquery-knobby/demo/)
 You'll find the demo files in the `demo/` directory.
@@ -8,10 +8,12 @@ You'll find the demo files in the `demo/` directory.
 ## Installation 
 
 
-- Load the Javascript file by including the script **after** jQuery has been included: `<script src="jquery.knobby.js"></script>`
+Load the Javascript file by including the script **after** jQuery has been included:
+`<script src="jquery.knobby.js"></script>`
 
 
-- Add the styles from one of the stylesheets to your CSS file or link it with `<link rel="stylesheet" href="jquery.knobby.css">`
+Add the styles from one of the stylesheets to your CSS file or link it with
+`<link rel="stylesheet" href="jquery.knobby.css">`
 
 
 
