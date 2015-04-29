@@ -1,5 +1,4 @@
 (function ($) {
-
     $.fn.knobby = function (options) {
         var settings = $.extend({
             color:'#556b2f',
@@ -8,26 +7,23 @@
             max:100,
             step:1
         }, options);
-
         var normalizeDegree = function(d) {
             if (d < 0) {
                 d = normalizeDegree(d + 360);
             }
             return d;
         };
-
-        var Vector = function(x,y){
+        var KnobbyVector = function(x,y){
             this.x = x;
             this.y = y;
         };
-        Vector.prototype.normalize=function() {
+        KnobbyVector.prototype.normalize=function() {
             var length = this.length();
             return new Vector(this.x/length, this.y/length);
         },
-        Vector.prototype.length=function() {
+        KnobbyVector.prototype.length=function() {
             return Math.sqrt(this.x * this.x + this.y * this.y);
         };
-
 
         var upOrDown = function(x,y,prevX,prevY,width,height) {
             var direction = 0.0;
@@ -38,8 +34,8 @@
             var y1 = height/2 - prevY;
             var y2 = height/2 - y;
 
-            var v1 = new Vector(x1,y1).normalize();
-            var v2 = new Vector(x2,y2).normalize();
+            var v1 = new KnobbyVector(x1,y1); //.normalize();
+            var v2 = new KnobbyVector(x2,y2); //.normalize();
 
             var a1 = Math.atan((v1.x)/(v1.y)) * (180/Math.PI);
             var a2 = Math.atan((v2.x)/(v2.y)) * (180/Math.PI);
@@ -49,30 +45,33 @@
             if (alpha > 90) { alpha -= 180 }
             if (alpha < -90) { alpha += 180 }
 
-console.log(alpha);
-
             return alpha;
 
         };
 
         this.each(function() {
             var mouseIsDown = false;
+            var $input = $(this);
+            var $wrap = $("<div>");
+            $wrap.addClass("knobby-wrap");
             var $knob = $("<div>");
             $knob.addClass("knobby-knob");
-            var $value = $("<div>");
-            $value.addClass("knobby-value");
-
+            var $handle = $("<div>");
+            $handle.addClass("knobby-handle");
             var $knob_sh = $("<div>");
             $knob_sh.addClass("knobby-shadow");
 
             $knob_sh.appendTo($knob);
-            $value.appendTo($knob);
+            $handle.appendTo($knob);
+            $wrap.append($knob);
 
-            $knob.insertBefore(this);
+            // swap input
+            $wrap.insertBefore(this);
+            $input.insertAfter($knob);
+            $input.addClass("knobby-input");
 
-            var $this = $(this);
 
-            $this.bind("input change", function () {
+            $input.bind("input change", function () {
                 if (!self_triggered_change) {
                     exact_val = parseFloat($(this).val()) || 0.0;
                 }
@@ -83,12 +82,17 @@ console.log(alpha);
             var width = $knob.width();
             var height = $knob.height();
 
+            var min = parseFloat($input.attr("min")) || settings.min;
+            var max = parseFloat($input.attr("max")) || settings.max;
+            var step = parseFloat($input.attr("step")) || settings.step;
+            var turn = parseFloat($input.attr("turn")) || settings.turn;
+            var exact_val = parseFloat($input.val()) || 0.0;
 
-            var min = parseFloat($this.attr("min")) || settings.min;
-            var max = parseFloat($this.attr("max")) || settings.max;
-            var step = $this.attr("step") || settings.step;
-            var turn = parseFloat($this.attr("turn")) || settings.turn;
-            var exact_val = parseFloat($this.val()) || 0.0;
+
+            var decimals = (step.toString().length-1);
+            if (decimals>0) decimals-=1;
+            var val = (Math.round(exact_val/step)*step).toFixed(decimals);
+            $input.val(val);
 
             var self_triggered_change=false;
 
@@ -105,15 +109,18 @@ console.log(alpha);
                     change = change / 360/turn*(max-min);
 
                     exact_val += change;
-
                     if ((typeof max !== "undefined") && (exact_val > max)) exact_val = max;
                     if ((typeof min !== "undefined") && (exact_val < min)) exact_val = min;
+                    //var val = exact_val - ((exact_val)% step)  + step;
 
+                    var decimals = (step.toString().length-1);
+                    if (decimals>0) decimals-=1;
 
-                    var val = exact_val-exact_val%step;
+                    val = (Math.round(exact_val/step)*step).toFixed(decimals);
+
 
                     self_triggered_change=true;
-                    $this.val(val).trigger("input");
+                    $input.val(val).trigger("input");
                     self_triggered_change=false;
                 }
                 prevX = x;
@@ -129,25 +136,13 @@ console.log(alpha);
                 mouseIsDown = false;
             });
             var draw = function () {
-                var degree = normalizeDegree((exact_val-min) * (((360)*turn) / (max-min)));
-                $value.css("transform", " translateY(-3em) rotate(-" + degree + "deg)");
+                var degree = normalizeDegree((val-min) * (((360)*turn) / (max-min)));
+                $handle.css("transform", " translateY(-3em) rotate(-" + degree + "deg)");
                 $knob.css("transform", "rotate(" + degree + "deg)");
                 $knob_sh.css("transform", "rotate(-" + degree + "deg)");
-
-                console.log("draw:" + exact_val);
             };
-
             draw();
         });
-
         return this;
-
-
     };
-
-
-
-
-
-
 }(jQuery));
