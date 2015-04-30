@@ -102,17 +102,15 @@
             $knob.bind("mousedown touchstart", function (e) {
                 mouseIsDown = true;
             });
-            $knob.bind("mousemove touchmove", function (e) {
-                var x = e.clientX - $knob.position().left;
-                var y = e.clientY - $knob.position().top;
-
-                if(e.type == 'touchmove'){
-                    var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-                    x = touch.pageX - $knob.position().left;
-                    y = touch.pageY - $knob.position().top;
-                }
-
-                if (mouseIsDown || e.type=="touchmove") {
+            $(window).bind("mousemove touchmove", function (e) {
+                if (mouseIsDown) {
+                    var x = e.clientX - $knob.position().left;
+                    var y = e.clientY - $knob.position().top;
+                    if(e.type == 'touchmove'){
+                        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                        x = touch.pageX - $knob.position().left;
+                        y = touch.pageY - $knob.position().top;
+                    }
                     if (prevX && prevY) {
 
                         var change = upOrDown(x, y, prevX, prevY, width, height);
@@ -129,20 +127,22 @@
                         self_triggered_change = false;
                     }
 
+                    prevX = x;
+                    prevY = y;
                     e.preventDefault();
                 }
-                prevX = x;
-                prevY = y;
             });
-            $knob.bind("dragstart drop", function () {
-                return false;
-            }).css("cursor", "pointer");
-
             $(window).bind("mouseup touchend", function (e) {
                 mouseIsDown = false;
                 prevX = undefined;
                 prevY = undefined;
             });
+
+            $knob.bind("dragstart drop", function () {
+                return false;
+            }).css("cursor", "pointer");
+
+
 
             var refreshValue = function(rewrite) {
                 if (typeof rewrite == "undefined") rewrite = true;
