@@ -2,7 +2,7 @@
 
 a jquery plugin to convert number input elements into **turnable knobs** that can be adjusted by cyclic dragging with mouse or fingers.
 
-[![Image of jquery.knobby.js result (light theme)](http://codeblock.at/wp-content/uploads/2015/04/knobby-bright.png)](http://codeblock.at/jquery-knobby/demo/)
+[![Image of jquery.knobby.js result (light theme)](http://codeblock.at/wp-content/uploads/2015/04/knobby-bright.png)](http://codeblock.at/jquery-knobby/demo/) [![Image of jquery.knobby.js result (dark theme)](http://codeblock.at/wp-content/uploads/2015/04/knobby-dark.png)](http://codeblock.at/jquery-knobby/demo/dark.html)
 
 
 ##[Demo](http://codeblock.at/jquery-knobby/demo/)
