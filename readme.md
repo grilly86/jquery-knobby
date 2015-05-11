@@ -13,13 +13,13 @@ Load the Javascript file by including the script **after** jQuery has been inclu
 
     <script src="jquery.knobby.js"></script>
 
+And also import the styles:
 
-**Add the styles to your CSS file** or link it the downloaded CSS files:
-
-    <link rel="stylesheet" href="jquery.knobby.css">
+    <link rel="stylesheet" href="jquery.knobby.light.css">
 
 The appearance of the plugin is fully customizable through CSS &ndash; you can add a background of your choice or [generate a noise background](http://codeblock.at/base64-noise-generator/) for example.
-The stylesheets are intended as starting points for you rather than final states.
+The stylesheets are intended as starting points rather than final states. 
+For performance I recommend to simply add the styles to one of your already loading CSS files instead of linking it severally!
 
 ## Usage
 You need to have an input like the following
@@ -43,7 +43,6 @@ You can pass options to configure knobby - **the numbers given are the default v
     });
 
 ##Options
-
 The following options can be served as attributes or passed as options - if both is present **attribute wins**.
 
 |attribute | description    |  type |
