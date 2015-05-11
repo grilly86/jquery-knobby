@@ -1,10 +1,16 @@
 (function ($) {
     $.fn.knobby = function (options) {
+
+        var rad2deg = (180/Math.PI);
+
         var settings = $.extend({
-            turn:1,
             min:0,
             max:100,
-            step:1
+            step:1,
+            turn:1,
+            size:4,
+            handleSize:1,
+            handleGap:.25,
         }, options);
         var normalizeDegree = function(d) {
             if (d < 0) {
@@ -24,20 +30,19 @@
             return Math.sqrt(this.x * this.x + this.y * this.y);
         };
 
-        var upOrDown = function(x,y,prevX,prevY,width,height) {
-            var direction = 0.0;
+        var upOrDown = function(x,y,prevX,prevY,radius) {
 
-            var x1 = width/2 - prevX;
-            var x2 = width/2 - x;
+            var x1 = radius - prevX;
+            var x2 = radius - x;
 
-            var y1 = height/2 - prevY;
-            var y2 = height/2 - y;
+            var y1 = radius - prevY;
+            var y2 = radius - y;
 
-            var v1 = new KnobbyVector(x1,y1); //.normalize();
-            var v2 = new KnobbyVector(x2,y2); //.normalize();
+            var v1 = new KnobbyVector(x1,y1);
+            var v2 = new KnobbyVector(x2,y2);
 
-            var a1 = Math.atan((v1.x)/(v1.y)) * (180/Math.PI);
-            var a2 = Math.atan((v2.x)/(v2.y)) * (180/Math.PI);
+            var a1 = Math.atan((v1.x)/(v1.y)) * rad2deg;
+            var a2 = Math.atan((v2.x)/(v2.y)) * rad2deg;
 
             var alpha = a1 - a2;
 
@@ -68,25 +73,27 @@
             $input.insertAfter($knob);
             $input.addClass("knobby-input");
 
-
             var mouseIsDown = false;
             var prevX, prevY;
-            var width = $knob.width();
-            var height = $knob.height();
 
-            var min = parseFloat($input.attr("min")) || settings.min;
+            var min = $input.attr("min") ? parseFloat($input.attr("min")) : settings.min;
             var max = parseFloat($input.attr("max")) || settings.max;
             var step = parseFloat($input.attr("step")) || settings.step;
             var turn = parseFloat($input.attr("turn")) || settings.turn;
             var exact_val = parseFloat($input.val()) || 0.0;
+            var size = parseFloat($input.attr("size")) || settings.size;
+            var handleSize = parseFloat($input.attr("handle-size")) || settings.handleSize;
+            var handleGap = $input.attr("handle-gap") ? parseFloat($input.attr("handle-gap")) : settings.handleGap;
 
             // formats numbers on init
             var decimals = (step.toString().length-1);
             if (decimals>0) decimals-=1;
             var val = (Math.round(exact_val/step)*step).toFixed(decimals);
             $input.val(val);
+            $knob.css({width:size*2 + "em",height: size*2 + "em"});
+            $handle.css({width:handleSize + "em", height: handleSize + "em", marginTop: -(handleSize/2)+"em", marginLeft:-handleSize/2+"em"});
 
-
+            var width = parseFloat($knob.width());
             var self_triggered_change=false;
 
             $input.bind("input change", function (e) {
@@ -103,22 +110,27 @@
                 mouseIsDown = true;
             });
             $(window).bind("mousemove touchmove", function (e) {
+
                 if (mouseIsDown) {
-                    var x = e.clientX - $knob.position().left;
-                    var y = e.clientY - $knob.position().top;
+                    var x = e.pageX - $knob.position().left;
+                    var y = e.pageY - $knob.position().top;
+
                     if(e.type == 'touchmove'){
                         var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
                         x = touch.pageX - $knob.position().left;
                         y = touch.pageY - $knob.position().top;
                     }
                     if (prevX && prevY) {
-
-                        var change = upOrDown(x, y, prevX, prevY, width, height);
-                        change = change / 360 / turn * (max - min);
-
+                        var change = upOrDown(x, y, prevX, prevY, width/2);
+                        change = change / 360 * (max - min) / turn ;
                         exact_val += change;
-                        if ((typeof max !== "undefined") && (exact_val > max)) exact_val = max;
-                        if ((typeof min !== "undefined") && (exact_val < min)) exact_val = min;
+
+                        if ((typeof max !== "undefined") && (exact_val > max)) {
+                            exact_val = max;
+                        }
+                        if ((typeof min !== "undefined") && (exact_val < min)) {
+                            exact_val = min;
+                        }
 
                         refreshValue(true);
                         draw();
@@ -129,7 +141,11 @@
 
                     prevX = x;
                     prevY = y;
+
                     e.preventDefault();
+                } else {
+                    prevX = null;
+                    prevY = null;
                 }
             });
             $(window).bind("mouseup touchend", function (e) {
@@ -141,8 +157,6 @@
             $knob.bind("dragstart drop", function () {
                 return false;
             }).css("cursor", "pointer");
-
-
 
             var refreshValue = function(rewrite) {
                 if (typeof rewrite == "undefined") rewrite = true;
@@ -157,10 +171,20 @@
             };
             var draw = function () {
                 var degree = normalizeDegree((val-min) * (((360)*turn) / (max-min)));
-                $handle.css("transform", " translateY(-3em) rotate(-" + degree + "deg)");
+                $handle.css("transform", " translateY(-"+parseFloat((size-handleSize/2)-handleGap)+"em) rotate(-" + degree + "deg)");
                 $knob.css("transform", "rotate(" + degree + "deg)");
                 $knob_sh.css("transform", "rotate(-" + degree + "deg)");
             };
+
+
+            if ((typeof max !== "undefined") && (exact_val > max)) {
+                exact_val = max;
+            }
+            if ((typeof min !== "undefined") && (exact_val < min)) {
+                exact_val = min;
+            }
+
+            refreshValue(true);
             draw();
         });
         return this;
