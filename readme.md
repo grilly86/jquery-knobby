@@ -30,7 +30,7 @@ To convert all inputs with a `type` of `number` on a page to *knobby-knobs* use:
 
     $("input[type=number]").knobby();
     
-You can pass options to configure knobby - these are the default values: 
+You can pass options to configure knobby - **the numbers given are the default values**: 
 
     $(".high-pass").knobby({
         min:0,
