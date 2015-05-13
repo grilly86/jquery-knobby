@@ -1,0 +1,4 @@
+RewriteEngine on
+
+RewriteRule ^dark.html$ index.php?style=dark [L]
+RewriteRule ^index.html$ index.php?style=light [L]

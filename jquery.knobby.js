@@ -1,8 +1,15 @@
+/*
+ * Knobby - jQuery Plugin
+ * by Christian Frauscher
+ * Examples and documentation at: http://github.com/grilly86/jquery.knobby.js/
+ *
+ * Version: 0.1 (2015-05-13)
+ *
+ */
 (function ($) {
     $.fn.knobby = function (options) {
-
+        var instanceIsPressed = [];
         var rad2deg = (180/Math.PI);
-
         var settings = $.extend({
             min:0,
             max:100,
@@ -53,7 +60,9 @@
 
         };
 
-        this.each(function() {
+        this.each(function(n) {
+            instanceIsPressed[n] = false;
+
             var $input = $(this);
             var $wrap = $("<div>");
             $wrap.addClass("knobby-wrap");
@@ -106,21 +115,40 @@
                     draw();
                 }
             });
+
+            var currentFinger=0;
             $knob.bind("mousedown touchstart", function (e) {
                 mouseIsDown = true;
+                instanceIsPressed[n] = true;
+
+                if (e.type == 'touchstart') {
+                    currentFinger = e.originalEvent.changedTouches[0].identifier;
+                }
             });
             $(window).bind("mousemove touchmove", function (e) {
-
                 if (mouseIsDown) {
-                    var x = e.pageX - $knob.position().left;
-                    var y = e.pageY - $knob.position().top;
-
-                    if(e.type == 'touchmove'){
-                        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-                        x = touch.pageX - $knob.position().left;
-                        y = touch.pageY - $knob.position().top;
+                    var x = 0,y = 0;
+                    if (e.type == "mousemove") {
+                        x = e.pageX - $knob.position().left;
+                        y = e.pageY - $knob.position().top;
                     }
-                    if (prevX && prevY) {
+                    if(e.type == 'touchmove'){
+                        var touch;
+                        var touches = e.originalEvent.changedTouches;
+
+                        if (touches) {
+                            for (var t = 0; t < touches.length; t++) {
+                                if (touches[t].identifier == currentFinger) {
+                                    touch = touches[t];
+                                }
+                            }
+                        }
+                        if (touch) {
+                            x = touch.pageX - $knob.position().left;
+                            y = touch.pageY - $knob.position().top;
+                        }
+                    }
+                    if ((x || y) && (prevX || prevY)) {
                         var change = upOrDown(x, y, prevX, prevY, width/2);
                         change = change / 360 * (max - min) / turn ;
                         exact_val += change;
@@ -138,22 +166,32 @@
                         $input.trigger("change");
                         self_triggered_change = false;
                     }
-
                     prevX = x;
                     prevY = y;
-
                     e.preventDefault();
                 } else {
                     prevX = null;
                     prevY = null;
+
+
                 }
+
+
+                for(var i = 0; i<instanceIsPressed.length; i++) {
+                    if (instanceIsPressed[i]) {
+                        e.preventDefault();
+                        return;
+                    }
+                }
+
             });
             $(window).bind("mouseup touchend", function (e) {
                 mouseIsDown = false;
                 prevX = undefined;
                 prevY = undefined;
-            });
 
+                instanceIsPressed[n] = false;
+            });
             $knob.bind("dragstart drop", function () {
                 return false;
             }).css("cursor", "pointer");
@@ -175,15 +213,12 @@
                 $knob.css("transform", "rotate(" + degree + "deg)");
                 $knob_sh.css("transform", "rotate(-" + degree + "deg)");
             };
-
-
             if ((typeof max !== "undefined") && (exact_val > max)) {
                 exact_val = max;
             }
             if ((typeof min !== "undefined") && (exact_val < min)) {
                 exact_val = min;
             }
-
             refreshValue(true);
             draw();
         });

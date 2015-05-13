@@ -12,13 +12,11 @@
   height: 8em;
   border-radius: 100%;
   overflow: hidden;
-  /* created with http://codeblock.at/base64-noise-generator/ */
-  background: #eeeeee url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAD1BMVEUAAAD8/vz09vT8+vz08vQ/kKNDAAAAAXRSTlMAQObYZgAAAqhJREFUOI0dlNsVxCAIRG1BoQGBBng0ANh/TUv2LycanbnMZHW4q6mEHYdkDgDFAl1cvXfSoZ0ZfBkfJwXyQnCN6qdEYWJs9xRtxVXGwWh2gZ3wmNG7eQwXXVc8SJwdiNKxVZwVVoa95pdmEl5xxEKs6a2DUZplGKNG64S32ElYsXveY8MW5bq43dISZXUVod/a0qb7KGzVupqr8jREjsjcrOyHRrOiLzM8bsaUB+AmkT2jElzdFQR+BeeTtxUQsoT2uh8IIKC7vYAE3m74FjYFb6nnEYS6yVpeDdLl+7zwRN+68R1vZ7JBvVJGC70jwAI1u8igvssx5C9RcQRVfzhkrI/zEgDwOnraK3FwQvUc9UfA+UblFXnSDTaYeM2GQ9DNsYtYdOYMGp0LmwmHn26zSOy0OuI4PgYHkIkU3dc+EHbM0GCxyYUZ0Ha9YzthRm538wJE5A2EF0W2oE9o9nFdAM/ZQEYul3Ztk5m02RxVhzu4+Qzitnh315W39hdA1bzk79K5e9Tf8bieBPn1Eh3Ah/ebNWU5i/wUEj6pnJVLFd/RIMsvTgCioF9OSvqg6wg761Yhi79J3ZX9Itgi7tPV7o+cJj6f5V3McPWdSbvfI2OwUWVCF9bn5ju1EowSZCLNNLTLogdFnRVwWiPwCJkCZym2fEji5FVlJjeiO9Vx/g7PRfhBQYeY0h3qs0cUZa+zEfOkvq9qPf2ZnBzLWJtbBB+0fADGmY3CaFpIe2u9aUFPzar2lHKu6jUXWwrdnuR16tT2BPpAHM2McMeAEkxCYnI8j7kmKh3X5j7Srx163+zUXv3BL/Zo++rGkf3ipiyYls7EUR9X5aCV50J111ewzffOr6RxixUVCsak/XgZRcKUGia2NzF15rBovFmPStXLOchy08ETP4pBvNrAGVHhAAAAAElFTkSuQmCC);
-  box-shadow: 0 0 8px -2px rgba(0, 0, 0, 0.25);
+  background: #dddddd;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  border: 1px solid #bbb;
+  border: 1px solid #aaa;
   box-sizing: border-box;
 }
 .knobby-shadow {
@@ -28,7 +26,9 @@
   bottom: 0;
   top: 0;
   border-radius: 100%;
-  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.25) inset, 0 1px 4px #ffffff inset;
+  border-style: solid;
+  border-width: 2px 0;
+  border-color: #ffffff #aaaaaa #aaaaaa #ffffff;
   box-sizing: border-box;
 }
 .knobby-handle {
@@ -37,10 +37,10 @@
   height: 1em;
   left: 50%;
   top: 50%;
-  border: 1px solid #ccc;
-  background: rgba(213, 213, 213, 0.3);
   border-radius: 100%;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25) inset, 0 -2px 2px #ffffff inset;
+  border-style: solid;
+  border-width: 2px 0;
+  border-color: #aaaaaa #ffffff #ffffff #aaaaaa;
   pointer-events: none;
   box-sizing: border-box;
 }
