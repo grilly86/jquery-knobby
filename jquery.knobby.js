@@ -29,13 +29,6 @@
             this.x = x;
             this.y = y;
         };
-        KnobbyVector.prototype.normalize=function() {
-            var length = this.length();
-            return new Vector(this.x/length, this.y/length);
-        },
-        KnobbyVector.prototype.length=function() {
-            return Math.sqrt(this.x * this.x + this.y * this.y);
-        };
 
         var upOrDown = function(x,y,prevX,prevY,radius) {
 
