@@ -1,8 +1,8 @@
-#jquery.knobby.js
+# jquery.knobby.js
 
 a jquery plugin to convert number input elements into **turnable knobs** that can be adjusted by cyclic dragging with mouse or fingers - **multi-touch** is now supported!
 
-##[Demo](http://codeblock.at/jquery-knobby/demo/)
+## [Demo](http://codeblock.at/jquery-knobby/demo/)
 [![Image of jquery.knobby.js result (dark theme)](http://codeblock.at/wp-content/uploads/2015/04/knobby-dark.png)](http://codeblock.at/jquery-knobby/demo/dark.html) [![Image of jquery.knobby.js result (light theme)](http://codeblock.at/wp-content/uploads/2015/04/knobby-bright.png)](http://codeblock.at/jquery-knobby/demo/)
 
 You'll find the demo files in the `demo/` directory of the repository.
@@ -42,7 +42,7 @@ You can pass options to configure knobby - **the numbers given are the default v
         handleGap:.25
     });
 
-##Options
+## Options
 The following options can be served as attributes or passed as options - if both is present **attribute wins**.
 
 |attribute | description    |  type |
