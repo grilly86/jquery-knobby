@@ -3,66 +3,24 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-    <?php
-        $styles = array("light","dark");
-
-        if (isset($_GET["style"])) {
-            $style = $_GET["style"];
-        }
-
-        if (!in_array($style,$styles)) {
-            $style = "light";
-        }
-    ?>
-
-    <link rel="stylesheet" href="../stylesheet/jquery.knobby.<?=$style?>.css" >
-
+    <link rel="stylesheet" href="../stylesheet/jquery.knobby.dark.css"/>
     <style>
-        <?php
-            switch($style) {
-                case "light": ?>
-                        body {
-                            background:#fff;
-                            font-family:sans-serif;
-                            text-align:center;
-
-                            color:#444;
-                        }
-                        pre {
-                            white-space: normal;
-                            background:#f4f4f4;
-                            margin:0 auto;
-                            padding:5px;
-                            border-radius:15px;
-                        }
-                        a:link {
-                            color:#26a;
-                        }
-                        a:visited {
-                            color:#26a;
-                        }
-                    <?php break;
-                case "dark": ?>
-                    body {
-                        background:#333;
-                        font-family:sans-serif;
-                        text-align:center;
-                        color:#eee;
-                    }
-                    pre{
-                        white-space: normal;
-                    }
-                    a:link {
-                        color:#26a;
-                    }
-                    a:visited {
-                        color:#666;
-                    }
-
-                <?php
-                    break;
-             } ?>
+        body {
+            background:#333;
+            font-family:sans-serif;
+            text-align:center;
+            color:#eee;
+        }
+        pre{
+            white-space: normal;
+        }
+        a:link {
+            color:#26a;
+        }
+        a:visited {
+            color:#666;
+        }
+        
     </style>
 </head>
 <body>
@@ -96,23 +54,14 @@
 <pre>&lt;input type="number" name="test7" turn=".75"  value="0" min="-5" max="10" step=".25" <strong>size="1" handle-size="1" handle-gap="0"</strong> /&gt;</pre>
 <input type="number" name="test7" turn=".75"  value="5" min="-5" max="10" step=".25" size="1" handle-size="1" handle-gap="0" />
 
-
 <p style="text-align:center">A <a href="http://jquery.com/">jQuery</a> plugin by <a href="http://codeblock.at/">Christian Frauscher</a></p>
 
-<script src="jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"></script>
 <script src="../jquery.knobby.js"></script>
 <script>
     $("input[type=number]").knobby();
-</script>
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-60203563-1', 'auto');
-    ga('send', 'pageview');
-
 </script>
 </body>
 </html>

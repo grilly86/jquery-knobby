@@ -1,6 +1,6 @@
-# jquery.knobby.js
-
-a jquery plugin to convert number input elements into **turnable knobs** that can be adjusted by cyclic dragging with mouse or fingers - **multi-touch** is now supported!
+# jquery-knobby
+(**DEPRECATED:** behaviour and code is a bit wonky, should probably not use fantasy html attributes but data- attributes)
+is a jquery plugin to convert number input elements into **turnable knobs** that can be adjusted by cyclic dragging with mouse or fingers - **multi-touch** is now supported!
 
 ## [Demo](http://codeblock.at/jquery-knobby/demo/)
 [![Image of jquery.knobby.js result (dark theme)](http://codeblock.at/wp-content/uploads/2015/04/knobby-dark.png)](http://codeblock.at/jquery-knobby/demo/dark.html) [![Image of jquery.knobby.js result (light theme)](http://codeblock.at/wp-content/uploads/2015/04/knobby-bright.png)](http://codeblock.at/jquery-knobby/demo/)
@@ -13,13 +13,12 @@ Load the Javascript file by including the script **after** jQuery has been inclu
 
     <script src="jquery.knobby.js"></script>
 
-And also import the styles:
+Also import the stylesheet:.
 
     <link rel="stylesheet" href="jquery.knobby.light.css">
 
 The appearance of the plugin is fully customizable through CSS &ndash; you can add a background of your choice or [generate a noise background](http://codeblock.at/base64-noise-generator/) for example.
 The stylesheets are intended as starting points rather than final states. 
-For performance I recommend to simply add the styles to one of your already loading CSS files instead of linking it severally!
 
 ## Usage
 You need to have an input like the following
@@ -30,7 +29,7 @@ To convert all inputs with a `type` of `number` on a page to *knobby-knobs* use:
 
     $("input[type=number]").knobby();
     
-You can pass options to configure knobby - **the numbers given are the default values**: 
+You can pass options to configure knobby - the numbers given are the default values: 
 
     $(".high-pass").knobby({
         min:0,
@@ -43,7 +42,7 @@ You can pass options to configure knobby - **the numbers given are the default v
     });
 
 ## Options
-The following options can be served as attributes or passed as options - if both is present **attribute wins**.
+The following options can be served as attributes or passed as options - if both is present *attribute wins*.
 
 |attribute | description    |  type |
 |-----|-----|-----|

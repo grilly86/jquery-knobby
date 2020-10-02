@@ -18,6 +18,7 @@
             size:4,
             handleSize:1,
             handleGap:.25,
+            sensitivity: 1,
         }, options);
         var normalizeDegree = function(d) {
             if (d < 0) {
@@ -86,6 +87,7 @@
             var size = parseFloat($input.attr("size")) || settings.size;
             var handleSize = parseFloat($input.attr("handle-size")) || settings.handleSize;
             var handleGap = $input.attr("handle-gap") ? parseFloat($input.attr("handle-gap")) : settings.handleGap;
+            var sensitivity = parseFloat($input.attr("sensitivity")) || settings.sensitivity;
 
             // formats numbers on init
             var decimals = (step.toString().length-1);
@@ -108,7 +110,9 @@
                     draw();
                 }
             });
-
+            var lerp = function(start, end, amt ) {
+                return (1-amt) * start + end * amt;
+            }
             var currentFinger=0;
             $knob.bind("mousedown touchstart", function (e) {
                 mouseIsDown = true;
@@ -144,7 +148,7 @@
                     if ((x || y) && (prevX || prevY)) {
                         var change = upOrDown(x, y, prevX, prevY, width/2);
                         change = change / 360 * (max - min) / turn ;
-                        exact_val += change;
+                        exact_val += change * sensitivity;
 
                         if ((typeof max !== "undefined") && (exact_val > max)) {
                             exact_val = max;
@@ -165,10 +169,7 @@
                 } else {
                     prevX = null;
                     prevY = null;
-
-
                 }
-
 
                 for(var i = 0; i<instanceIsPressed.length; i++) {
                     if (instanceIsPressed[i]) {
